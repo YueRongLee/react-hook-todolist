@@ -1,0 +1,19 @@
+.todo-input-box {
+  margin-top: 40px;
+  display: flex;
+}
+
+.todo-input-box input {
+  flex: 1;
+  height: 32px;
+  font-size: 16px;
+  border: 0;
+  outline: none;
+  border-bottom: 1px solid #474747;
+  background: transparent;
+}
+
+.togo-input-box button {
+  padding: 0;
+  width: 60px;
+}

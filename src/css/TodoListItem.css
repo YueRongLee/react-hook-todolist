@@ -1,0 +1,31 @@
+.todo-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+  height: 40px;
+  padding: 0 20px;
+}
+.todo-list-item-hover {
+  background-color: #dddddd;
+}
+.todo-list-item-done {
+  text-decoration: line-through;
+}
+
+.todo-list-action > button {
+  padding: 0;
+  margin-left: 25px;
+  border: 0;
+  background: transparent;
+  color: #707070;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: sans-serif;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.todo-list-done-time {
+  font-size: 16px;
+  font-weight: bold;
+}
