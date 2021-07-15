@@ -1,25 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useMemo, useReducer } from 'react'
-import uuid from 'uuid'
+import React, { useMemo, useReducer } from "react";
+import uuid from "uuid";
 
-import '../css/TodoLayout.css'
+import "../css/TodoLayout.css";
 // constants
-import { ItemStatus } from '../constants/ItemStatus'
+import { ItemStatus } from "../constants/ItemStatus";
 // components
-import { TodoTitle } from '../components/TodoTitle'
-import { TodoInput } from '../components/TodoInput'
-import { TodoList } from '../components/TodoList'
-import { ButtonAction } from '../constants/ButtonAction'
+import { TodoTitle } from "../components/TodoTitle";
+import { TodoInput } from "../components/TodoInput";
+import { TodoList } from "../components/TodoList";
+import { ButtonAction } from "../constants/ButtonAction";
 
 // 由根元件來儲存主要邏輯數據 useReducer + useContext
-export const AppContext = React.createContext()
+export const AppContext = React.createContext();
 
 export const TodoLayout = () => {
-  const initialTodoItems = []
+  const initialTodoItems = [];
 
   // todoItem reducer 處理函數
   const todoItemReducer = (state, action) => {
-    const { type, payload } = action
+    const { type, payload } = action;
     switch (type) {
       case ButtonAction.CLICK_ADD:
         return [
@@ -29,7 +29,7 @@ export const TodoLayout = () => {
             name: action.payload.name,
             status: ItemStatus.UNDONE,
           },
-        ]
+        ];
       case ButtonAction.CLICK_DONE:
         return state.map((item) => {
           if (item.id === payload.id) {
@@ -37,47 +37,47 @@ export const TodoLayout = () => {
               ...item,
               status: ItemStatus.DONE,
               doneAt: new Date().toLocaleString([], { hour12: false }),
-            }
+            };
           } else {
-            return item
+            return item;
           }
-        })
+        });
       case ButtonAction.CLICK_DELETE:
         return state.filter((item) => {
-          return item.id !== payload.id
-        })
+          return item.id !== payload.id;
+        });
       default:
-        return state
+        return state;
     }
-  }
+  };
 
   // 是否只顯示 done 的數據，會影響邏輯之變數處理函數
   const showDoneReducer = (state, action) => {
-    return action.payload.showDone
-  }
+    return action.payload.showDone;
+  };
 
   const [todoItems, todoItemsDispatch] = useReducer(
     todoItemReducer,
     initialTodoItems
-  )
+  );
 
-  const [showDone, showDoneDispatch] = useReducer(showDoneReducer, false)
+  const [showDone, showDoneDispatch] = useReducer(showDoneReducer, false);
 
   // 用來顯示於 list 的數據
   const getDisplayItems = (showDone) => {
     if (showDone) {
       return todoItems.filter((todoItem) => {
-        return todoItem.status === ItemStatus.DONE
-      })
+        return todoItem.status === ItemStatus.DONE;
+      });
     }
-    return todoItems
-  }
+    return todoItems;
+  };
 
   // 用來顯示於 list 的數據，受到 todoItem 和 showDone 的影響
   const displayItems = useMemo(
     () => getDisplayItems(showDone),
     [showDone, todoItems]
-  )
+  );
 
   return (
     <AppContext.Provider
@@ -89,5 +89,5 @@ export const TodoLayout = () => {
         <TodoList />
       </div>
     </AppContext.Provider>
-  )
-}
+  );
+};
